@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-feb-2019 8:13:09 by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="modelo.Restaurante" table="restaurante" catalog="cristeat" optimistic-lock="version">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="nombre" length="20" not-null="true" />
+        </property>
+        <property name="tipoComida" type="string">
+            <column name="tipoComida" length="12" not-null="true" />
+        </property>
+        <property name="direccion" type="string">
+            <column name="direccion" length="30" not-null="true" unique="true" />
+        </property>
+        <property name="valoracion" type="double">
+            <column name="valoracion" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="pedidoMinimo" type="double">
+            <column name="pedidoMinimo" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="horaApertura" type="string">
+            <column name="horaApertura" length="65535" not-null="true" />
+        </property>
+        <property name="horaCierre" type="string">
+            <column name="horaCierre" length="65535" not-null="true" />
+        </property>
+        <property name="abierto" type="boolean">
+            <column name="abierto" not-null="true" />
+        </property>
+        <set name="propietarios" table="propietario" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idRestaurante" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Propietario" />
+        </set>
+        <set name="platos" table="plato" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="idRestaurante" not-null="true" />
+            </key>
+            <one-to-many class="modelo.Plato" />
+        </set>
+    </class>
+</hibernate-mapping>
